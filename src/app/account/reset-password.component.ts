@@ -6,8 +6,17 @@ import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '@app/_services';
 import { MustMatch } from '@app/_helpers';
 
-@Component({ templateUrl: 'register.component.html' })
-export class RegisterComponent implements OnInit {
+enum TokenStatus {
+    Validating,
+    Valid,
+    Invalid
+}
+
+@Component({ templateUrl: 'reset-password.component.html' })
+export class ResetPasswordComponent implements OnInit {
+    TokenStatus = TokenStatus;
+    tokenStatus = TokenStatus.Validating;
+    token = null;
     form: UntypedFormGroup;
     loading = false;
     submitted = false;
@@ -22,16 +31,28 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            title: ['', Validators.required],
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             confirmPassword: ['', Validators.required],
-            acceptTerms: [false, Validators.requiredTrue]
         }, {
             validator: MustMatch('password', 'confirmPassword')
         });
+
+        const token = this.route.snapshot.queryParams['token'];
+
+        // remove token from url to prevent http referer leakage
+        this.router.navigate([], { relativeTo: this.route, replaceUrl: true });
+
+        this.accountService.validateResetToken(token)
+            .pipe(first())
+            .subscribe({
+                next: () => {
+                    this.token = token;
+                    this.tokenStatus = TokenStatus.Valid;
+                },
+                error: () => {
+                    this.tokenStatus = TokenStatus.Invalid;
+                }
+            });
     }
 
     // convenience getter for easy access to form fields
@@ -49,11 +70,11 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.accountService.register(this.form.value)
+        this.accountService.resetPassword(this.token, this.f.password.value, this.f.confirmPassword.value)
             .pipe(first())
             .subscribe({
                 next: () => {
-                    this.alertService.success('Registration successful, please check your email for verification instructions', { keepAfterRouteChange: true });
+                    this.alertService.success('Password reset successful, you can now login', { keepAfterRouteChange: true });
                     this.router.navigate(['../login'], { relativeTo: this.route });
                 },
                 error: error => {
