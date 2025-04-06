@@ -15,7 +15,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
-        const alerService = this.alertService;
+        const alertService = this.alertService;
 
         return handleRoute();
         
@@ -279,7 +279,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function deleteAccount() {
-        if (!isAuthorized()) return unauthorized();
+        if (!isAuthenticated()) return unauthorized();
 
         let account = accounts.find(x => x.id === idFromUrl());
         

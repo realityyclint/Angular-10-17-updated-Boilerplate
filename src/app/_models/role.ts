@@ -1,3 +1,4 @@
-export * from './account';
-export * from './role';
-export * from './alert';
+export enum Role {
+    User = 'User',
+    Admin = 'Admin',
+}
