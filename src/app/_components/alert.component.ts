@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Alert, AlertType } from '@app/_models';
-import { AlertService } from '@app/_services';
+import { Alert, AlertType } from '../../app/_models';
+import { AlertService } from '../../app/_services';
 
 @Component({ selector: 'alert', templateUrl: 'alert.component.html' })
 export class AlertComponent implements OnInit, OnDestroy {
@@ -16,7 +16,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
     constructor(private router: Router, private alertService: AlertService) { }
 
-    ngOnInit(){
+    ngOnInit() {
         // subscribe to new alert notifications
         this.alertSubscription = this.alertService.onAlert(this.id)
             .subscribe(alert => {
@@ -56,7 +56,7 @@ export class AlertComponent implements OnInit, OnDestroy {
     removeAlert(alert: Alert) {
         // check if already removed to prevent error on auto close
         if (!this.alerts.includes(alert)) return;
-        
+
         if (this.fade) {
             // fade out alert
             alert.fade = true;

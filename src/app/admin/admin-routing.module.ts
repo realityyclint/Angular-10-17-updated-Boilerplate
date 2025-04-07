@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SubNavComponent } from './subnav.component';
 import { LayoutComponent } from './layout.component';
-import { OverviewComponent } from './overview.component';
+import { OverViewComponent } from './overview.component';
 
-const accountsModule = () => import('./accounts/accounts.module').then(x => x.AccountsModule);
+const accountsModule = () => import('./accounts/accounts-module').then(x => x.AccountsModule);
 
 const routes: Routes = [
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: '', component: LayoutComponent,
     children: [
-      { path: '', component: OverviewComponent },
+      { path: '', component: OverViewComponent },
       { path: 'accounts', loadChildren: accountsModule }
     ]
   }
@@ -24,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }
