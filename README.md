@@ -71,7 +71,7 @@ Contributions are welcome! If you’d like to contribute, please follow these st
         • Implement the feature: Implement the profile management and admin dashboard components in the Angular boilerplate.
         • Add a fake backend to simulate API responses during development.
         • Commit changes to the branch: git add ., git commit -m "Adding The Functions of all fake backend"
-        • Push to the remote repository: git push origin gomez-frontend-profile-admin-fake-backend.
+        • Push to the remote repository: git push origin langomez-frontend-profile-admin-fake-backend.
         • Create a Pull Request and request review to merge into main.
 
 ## License
