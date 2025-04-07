@@ -28,7 +28,6 @@ This project is developed by:
 ---
 
 ## Usage
-
 # User
     • Register a new account at /account/register.
     • Verify your email using the link sent to your inbox.
@@ -47,15 +46,6 @@ This project is developed by:
 
 ## Contributing
 
-Contributions are welcome! If you’d like to contribute, please follow these steps:
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature-branch`)
-3. Make your changes
-4. Commit your changes (`git commit -m 'Add new feature'`)
-5. Push to the branch (`git push origin feature-branch`)
-6. Open a Pull Request
-
----
 # Frontend Development:
     1. Developer 3: Email Sign-Up, Verification, and Authentication
         • user-management-system-frontend the respository.
@@ -71,7 +61,7 @@ Contributions are welcome! If you’d like to contribute, please follow these st
         • Implement the feature: Implement the profile management and admin dashboard components in the Angular boilerplate.
         • Add a fake backend to simulate API responses during development.
         • Commit changes to the branch: git add ., git commit -m "Adding The Functions of all fake backend"
-        • Push to the remote repository: git push origin langomez-frontend-profile-admin-fake-backend.
+        • Push to the remote repository: git push origin gomez-frontend-profile-admin-fake-backend.
         • Create a Pull Request and request review to merge into main.
 
 ## License
