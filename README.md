@@ -45,6 +45,7 @@ This project is developed by:
     • Test cases and detailed reports can be found here (insert the link).
 
 ## Contributing
+
 # Frontend Development:
     1. Developer 3: Email Sign-Up, Verification, and Authentication
         • user-management-system-frontend the respository.
