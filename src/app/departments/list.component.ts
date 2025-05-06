@@ -29,6 +29,7 @@ export class ListComponent implements OnInit {
             next: (data) => (this.departments = data),
             error: (err) => (this.errorMessage = err.message),
         });
+        console.log(this.departments); // Check how many items Angular actually sees
     }
 
     add(): void {
