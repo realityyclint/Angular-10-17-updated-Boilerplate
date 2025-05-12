@@ -16,10 +16,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let employee of employees">
-            <td>{{employee.employeeId}}</td>
-            <td>{{employee.user?.email}}</td>
+            <td>{{employee.accountId}}</td>
+            <td>{{employee.Account?.email}}</td> 
             <td>{{employee.position}}</td>
-            <td>{{employee.department?.name}}</td>
+            <td>{{employee.Department?.name}}</td> 
             <td>{{employee.hireDate | date:'shortDate'}}</td>
             <td>
               <span class="badge" [ngClass]="{'bg-success': employee.status === 'Active', 'bg-danger': employee.status !== 'Active'}">{{employee.status}}</span>
@@ -38,3 +38,11 @@
     <button *ngIf="account()?.role === 'Admin'" class="btn btn-primary float-end" (click)="add()">Add Employee</button>
   </div>
 </div>
+
+<app-employee-transfer
+  [showModal]="showModal"
+  [selectedEmployee]="selectedEmployee"
+  [departments]="departments"
+  (cancelEvent)="onCancelTransfer()"
+  (transferEvent)="onTransferConfirmed($event)">
+</app-employee-transfer>

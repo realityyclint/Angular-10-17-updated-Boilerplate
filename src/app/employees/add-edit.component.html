@@ -3,13 +3,9 @@
   <div class="card-body">
     <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
     <div class="mb-3">
-      <label class="form-label">Employee ID</label>
-      <input type="text" class="form-control" [(ngModel)]="employee.employeeId" [disabled]="!!id">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">User</label>
-      <select class="form-select" [(ngModel)]="employee.userId">
-        <option *ngFor="let user of users" [value]="user.id">{{user.email}}</option>
+      <label class="form-label">Account</label>
+      <select class="form-select" [(ngModel)]="employee.accountId">
+        <option *ngFor="let acc of accounts" [value]="acc.id">{{acc.email}}</option>
       </select>
     </div>
     <div class="mb-3">
@@ -24,7 +20,7 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Hire Date</label>
-      <input type="date" class="form-control" [(ngModel)]="employee.hireDate">
+      <input type="date" class="form-control" [(ngModel)]="employee.hireDate" disabled>
     </div>
     <div class="mb-3">
       <label class="form-label">Status</label>
