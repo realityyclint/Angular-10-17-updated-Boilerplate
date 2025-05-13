@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, finalize } from 'rxjs/operators';
+import { map, finalize, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { Account } from '../../app/_models';
@@ -56,7 +57,14 @@ export class AccountService {
   }
 
   verifyEmail(token: string) {
-    return this.http.post(`${baseUrl}/verify-email`, { token });
+    return this.http.post(`${baseUrl}/verify-email`, { token })
+      .pipe(
+        catchError(error => {
+          // Handle the error by logging it or showing an alert
+          console.error('Verification failed', error);
+          return throwError('Verification failed. Please try again or contact support.');
+        })
+      );
   }
 
   forgotPassword(email: string) {
