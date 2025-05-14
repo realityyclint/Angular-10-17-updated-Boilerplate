@@ -12,24 +12,28 @@ const baseUrl = `${environment.apiUrl}/accounts`;
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-  private accountSubject: BehaviorSubject<Account>;
-  public account: Observable<Account>;
+  private accountSubject: BehaviorSubject<Account | null>;
+  public account: Observable<Account | null>;
 
   constructor(
     private router: Router,
     private http: HttpClient
   ) {
-    this.accountSubject = new BehaviorSubject<Account>(null);
+    const storedAccount = localStorage.getItem('account');
+    this.accountSubject = new BehaviorSubject<Account | null>(
+      storedAccount ? JSON.parse(storedAccount) : null
+    );
     this.account = this.accountSubject.asObservable();
   }
 
-  public get accountValue(): Account {
+  public get accountValue(): Account | null {
     return this.accountSubject.value;
   }
 
   login(email: string, password: string) {
     return this.http.post<any>(`${baseUrl}/authenticate`, { email, password }, { withCredentials: true })
       .pipe(map(account => {
+        localStorage.setItem('account', JSON.stringify(account));
         this.accountSubject.next(account);
         this.startRefreshTokenTimer();
         return account;
@@ -39,13 +43,15 @@ export class AccountService {
   logout() {
     this.http.post<any>(`${baseUrl}/revoke-token`, {}, { withCredentials: true }).subscribe();
     this.stopRefreshTokenTimer();
+    localStorage.removeItem('account');
     this.accountSubject.next(null);
     this.router.navigate(['/account/login']);
   }
 
   refreshToken() {
     return this.http.post<any>(`${baseUrl}/refresh-token`, {}, { withCredentials: true })
-      .pipe(map((account) => {
+      .pipe(map(account => {
+        localStorage.setItem('account', JSON.stringify(account));
         this.accountSubject.next(account);
         this.startRefreshTokenTimer();
         return account;
@@ -60,9 +66,8 @@ export class AccountService {
     return this.http.post(`${baseUrl}/verify-email`, { token })
       .pipe(
         catchError(error => {
-          // Handle the error by logging it or showing an alert
           console.error('Verification failed', error);
-          return throwError('Verification failed. Please try again or contact support.');
+          return throwError(() => new Error('Verification failed. Please try again or contact support.'));
         })
       );
   }
@@ -87,14 +92,14 @@ export class AccountService {
     return this.http.get<Account>(`${baseUrl}/${id}`);
   }
 
-  create(params) {
+  create(params: any) {
     return this.http.post(baseUrl, params);
   }
 
-  update(id, params) {
+  update(id: string, params: any) {
     return this.http.put(`${baseUrl}/${id}`, params)
       .pipe(map((account: any) => {
-        if (account.id === this.accountValue.id) {
+        if (this.accountValue && account.id === this.accountValue.id) {
           account = { ...this.accountValue, ...account };
           this.accountSubject.next(account);
         }
@@ -105,18 +110,20 @@ export class AccountService {
   delete(id: string) {
     return this.http.delete(`${baseUrl}/${id}`)
       .pipe(finalize(() => {
-        if (id === this.accountValue.id) {
+        if (this.accountValue && id === this.accountValue.id) {
           this.logout();
         }
       }));
   }
 
   // helper methods
-
-  private refreshTokenTimeout;
+  private refreshTokenTimeout: any;
 
   private startRefreshTokenTimer() {
-    const jwtToken = JSON.parse(atob(this.accountValue.jwtToken.split('.')[1]));
+    const jwt = this.accountValue?.jwtToken;
+    if (!jwt) return;
+
+    const jwtToken = JSON.parse(atob(jwt.split('.')[1]));
     const expires = new Date(jwtToken.exp * 1000);
     const timeout = expires.getTime() - Date.now() - (60 * 1000);
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
