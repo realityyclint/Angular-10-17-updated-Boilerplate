@@ -12,9 +12,12 @@ export class EmployeeService {
 
     // 🔐 Create reusable headers with token
     private getAuthHeaders(): HttpHeaders {
-        const token = localStorage.getItem('token'); // or sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error('No token found!');
+        }
         return new HttpHeaders({
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token || ''}`,
         });
     }
 
