@@ -8,7 +8,7 @@ import { Account, Role } from './_models';
 })
 export class AppComponent {
   Role = Role;
-  account: Account;
+  account: Account | null = null;
 
   constructor(private accountService: AccountService) {
     this.accountService.account.subscribe(x => this.account = x);

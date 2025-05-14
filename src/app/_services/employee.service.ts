@@ -1,36 +1,60 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class EmployeeService {
-    private baseUrl = 'https://node-js-mysql-boilerplate-api.onrender.com/accounts/employees'; // Adjust this if your API route differs
+    private baseUrl = 'https://node-js-mysql-boilerplate-api.onrender.com/accounts/employees';
 
     constructor(private http: HttpClient) { }
 
+    // 🔐 Create reusable headers with token
+    private getAuthHeaders(): HttpHeaders {
+        const token = localStorage.getItem('token'); // or sessionStorage.getItem('token');
+        return new HttpHeaders({
+            Authorization: `Bearer ${token}`,
+        });
+    }
+
     getAll(): Observable<any[]> {
-        return this.http.get<any[]>(this.baseUrl);
+        return this.http.get<any[]>(this.baseUrl, {
+            headers: this.getAuthHeaders(),
+        });
     }
 
     getById(id: number): Observable<any> {
-        return this.http.get<any>(`${this.baseUrl}/${id}`);
+        return this.http.get<any>(`${this.baseUrl}/${id}`, {
+            headers: this.getAuthHeaders(),
+        });
     }
 
     create(employee: any): Observable<any> {
-        return this.http.post<any>(this.baseUrl, employee);
+        return this.http.post<any>(this.baseUrl, employee, {
+            headers: this.getAuthHeaders(),
+        });
     }
 
     update(id: number, employee: any): Observable<any> {
-        return this.http.put<any>(`${this.baseUrl}/${id}`, employee);
+        return this.http.put<any>(`${this.baseUrl}/${id}`, employee, {
+            headers: this.getAuthHeaders(),
+        });
     }
 
     delete(id: number): Observable<any> {
-        return this.http.delete<any>(`${this.baseUrl}/${id}`);
+        return this.http.delete<any>(`${this.baseUrl}/${id}`, {
+            headers: this.getAuthHeaders(),
+        });
     }
 
     transfer(id: number, departmentId: number): Observable<any> {
-        return this.http.post<any>(`${this.baseUrl}/${id}/transfer`, { departmentId });
+        return this.http.post<any>(
+            `${this.baseUrl}/${id}/transfer`,
+            { departmentId },
+            {
+                headers: this.getAuthHeaders(),
+            }
+        );
     }
 }
