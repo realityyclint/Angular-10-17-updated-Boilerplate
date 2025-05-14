@@ -21,30 +21,35 @@ export class EmployeeService {
     getAll(): Observable<any[]> {
         return this.http.get<any[]>(this.baseUrl, {
             headers: this.getAuthHeaders(),
+            withCredentials: true, // Add this if cookies/session are needed
         });
     }
 
     getById(id: number): Observable<any> {
         return this.http.get<any>(`${this.baseUrl}/${id}`, {
             headers: this.getAuthHeaders(),
+            withCredentials: true, // Add this if cookies/session are needed
         });
     }
 
     create(employee: any): Observable<any> {
         return this.http.post<any>(this.baseUrl, employee, {
             headers: this.getAuthHeaders(),
+            withCredentials: true, // Add this if cookies/session are needed
         });
     }
 
     update(id: number, employee: any): Observable<any> {
         return this.http.put<any>(`${this.baseUrl}/${id}`, employee, {
             headers: this.getAuthHeaders(),
+            withCredentials: true, // Add this if cookies/session are needed
         });
     }
 
     delete(id: number): Observable<any> {
         return this.http.delete<any>(`${this.baseUrl}/${id}`, {
             headers: this.getAuthHeaders(),
+            withCredentials: true, // Add this if cookies/session are needed
         });
     }
 
@@ -54,6 +59,7 @@ export class EmployeeService {
             { departmentId },
             {
                 headers: this.getAuthHeaders(),
+                withCredentials: true, // Add this if cookies/session are needed
             }
         );
     }
