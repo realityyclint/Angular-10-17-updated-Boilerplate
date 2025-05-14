@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class EmployeeService {
-    private baseUrl = '/accounts/employees'; // Adjust this if your API route differs
+    private baseUrl = 'https://node-js-mysql-boilerplate-api.onrender.coms/accounts/employees'; // Adjust this if your API route differs
 
     constructor(private http: HttpClient) { }
 
