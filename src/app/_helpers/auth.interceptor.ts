@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AccountService } from '../_services/account.service';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -10,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const account = this.accountService.accountValue;
         const isLoggedIn = account && account.jwtToken; // Ensure jwtToken is used
-        const isApiUrl = request.url.startsWith('/accounts') || request.url.startsWith('/api');
+        const isApiUrl = request.url.startsWith(environment.apiUrl);
 
         if (isLoggedIn && isApiUrl) {
             request = request.clone({
