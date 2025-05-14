@@ -59,11 +59,11 @@ export class AccountService {
   }
 
   register(account: Account) {
-    return this.http.post(`${baseUrl}/register`, account, { withCredentials: true });
+    return this.http.post(`${baseUrl}/register`, account);
   }
 
   verifyEmail(token: string) {
-    return this.http.post(`${baseUrl}/verify-email`, { token }, { withCredentials: true })
+    return this.http.post(`${baseUrl}/verify-email`, { token })
       .pipe(
         catchError(error => {
           console.error('Verification failed', error);
@@ -73,31 +73,31 @@ export class AccountService {
   }
 
   forgotPassword(email: string) {
-    return this.http.post(`${baseUrl}/forgot-password`, { email }, { withCredentials: true });
+    return this.http.post(`${baseUrl}/forgot-password`, { email });
   }
 
   validateResetToken(token: string) {
-    return this.http.post(`${baseUrl}/validate-reset-token`, { token }, { withCredentials: true });
+    return this.http.post(`${baseUrl}/validate-reset-token`, { token });
   }
 
   resetPassword(token: string, password: string, confirmPassword: string) {
-    return this.http.post(`${baseUrl}/reset-password`, { token, password, confirmPassword }, { withCredentials: true });
+    return this.http.post(`${baseUrl}/reset-password`, { token, password, confirmPassword });
   }
 
   getAll() {
-    return this.http.get<Account[]>(baseUrl, { withCredentials: true });
+    return this.http.get<Account[]>(baseUrl);
   }
 
   getById(id: string) {
-    return this.http.get<Account>(`${baseUrl}/${id}`, { withCredentials: true });
+    return this.http.get<Account>(`${baseUrl}/${id}`);
   }
 
   create(params: any) {
-    return this.http.post(baseUrl, params, { withCredentials: true });
+    return this.http.post(baseUrl, params);
   }
 
   update(id: string, params: any) {
-    return this.http.put(`${baseUrl}/${id}`, params, { withCredentials: true })
+    return this.http.put(`${baseUrl}/${id}`, params)
       .pipe(map((account: any) => {
         if (this.accountValue && account.id === this.accountValue.id) {
           account = { ...this.accountValue, ...account };
@@ -108,7 +108,7 @@ export class AccountService {
   }
 
   delete(id: string) {
-    return this.http.delete(`${baseUrl}/${id}`, { withCredentials: true })
+    return this.http.delete(`${baseUrl}/${id}`)
       .pipe(finalize(() => {
         if (this.accountValue && id === this.accountValue.id) {
           this.logout();
