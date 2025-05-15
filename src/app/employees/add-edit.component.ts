@@ -65,7 +65,10 @@ export class AddEditComponent implements OnInit {
             : this.employeeService.create(this.employee);
 
         request.subscribe({
-            next: () => this.router.navigate(['/employees']),
+            next: () => {
+                // Navigate back to the list using relative path
+                this.router.navigate(['../'], { relativeTo: this.route });
+            },
             error: (err) => (this.errorMessage = err.message),
         });
     }
