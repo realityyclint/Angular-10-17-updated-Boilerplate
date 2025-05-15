@@ -1,25 +1,68 @@
-<div class="app-container" [ngClass]="{ 'bg-light': account }">
-    <!-- main nav -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="account">
-      <div class="navbar-nav">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item nav-link">Home</a>
-        <a routerLink="/profile" routerLinkActive="active" class="nav-item nav-link">Profile</a>
-        <a *ngIf="account.role === Role.Admin" routerLink="/admin" routerLinkActive="active" class="nav-item nav-link">Admin</a>
-        <a routerLink="/departments" routerLinkActive="active" class="nav-item nav-link">Departments</a>
-        <a routerLink="/employees" routerLinkActive="active" class="nav-item nav-link">Employees</a>
-        <a *ngIf="account" [routerLink]="['/employees', account.accountId, 'requests']" routerLinkActive="active" class="nav-item nav-link">
-          Requests
-        </a>        
-        <a (click)="logout()" class="nav-item nav-link">Logout</a>
+<div class="app-container min-vh-100 d-flex flex-column bg-light">
+  <!-- Main Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm animate__animated animate__fadeInDown" *ngIf="account">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
+         <span class="ms-2">MyPortal</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item animate__animated animate__fadeInLeft">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
+               Home
+            </a>
+          </li>
+          <li class="nav-item animate__animated animate__fadeInLeft animate__delay-1s">
+            <a routerLink="/profile" routerLinkActive="active" class="nav-link">
+               Profile
+            </a>
+          </li>
+          <li *ngIf="account.role === Role.Admin" class="nav-item animate__animated animate__fadeInLeft animate__delay-2s">
+            <a routerLink="/admin" routerLinkActive="active" class="nav-link">
+               Admin
+            </a>
+          </li>
+          <li class="nav-item animate__animated animate__fadeInLeft animate__delay-3s">
+            <a routerLink="/departments" routerLinkActive="active" class="nav-link">
+               Departments
+            </a>
+          </li>
+          <li class="nav-item animate__animated animate__fadeInLeft animate__delay-4s">
+            <a routerLink="/employees" routerLinkActive="active" class="nav-link">
+               Employees
+            </a>
+          </li>
+          <li class="nav-item animate__animated animate__fadeInLeft animate__delay-5s">
+            <a *ngIf="account" [routerLink]="['/employees', account.accountId, 'requests']" routerLinkActive="active" class="nav-link">
+               Requests
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item animate__animated animate__fadeIn animate__delay-6s">
+            <a class="nav-link text-light" (click)="logout()" style="cursor: pointer;">
+               Logout
+            </a>
+          </li>
+        </ul>
       </div>
-    </nav>
-  
-    <!-- subnav router outlet -->
-    <router-outlet name="subnav"></router-outlet>
-  
-    <!-- global alert -->
+    </div>
+  </nav>
+
+  <!-- Subnav outlet -->
+  <router-outlet name="subnav"></router-outlet>
+
+  <!-- Alerts -->
+  <div class="container my-3 animate__animated animate__fadeInUp">
     <alert></alert>
-  
-    <!-- main router outlet -->
+  </div>
+
+  <!-- Main content -->
+  <div class="flex-fill container animate__animated animate__fadeInUp animate__delay-1s">
     <router-outlet></router-outlet>
+  </div>
 </div>
