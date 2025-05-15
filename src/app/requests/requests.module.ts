@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RequestsRoutingModule } from '../requests-routing.module'; // ✅ Use this
+import { RequestsRoutingModule } from '../requests-routing.module';
 
 import { AddEditComponent } from './add-edit.component';
 import { ListComponent } from './list.component';
@@ -14,7 +14,7 @@ import { ListComponent } from './list.component';
     imports: [
         CommonModule,
         FormsModule,
-        RequestsRoutingModule // ✅ Proper routing
+        RequestsRoutingModule
     ]
 })
 export class RequestsModule { }

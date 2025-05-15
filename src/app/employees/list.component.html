@@ -25,7 +25,7 @@
               <span class="badge" [ngClass]="{'bg-success': employee.status === 'Active', 'bg-danger': employee.status !== 'Active'}">{{employee.status}}</span>
             </td>
             <td>
-              <button class="btn btn-sm btn-info me-1" (click)="viewRequests(employee.id)">Requests</button>
+              <button class="btn btn-sm btn-info me-1" (click)="viewRequests(employee.accountId)">Requests</button>
               <button class="btn btn-sm btn-info me-1" (click)="viewWorkflows(employee.id)">Workflows</button>
               <button *ngIf="account()?.role === 'Admin'" class="btn btn-sm btn-warning me-1" (click)="transfer(employee)">Transfer</button>
               <button class="btn btn-sm btn-primary me-1" (click)="edit(employee.id)">Edit</button>

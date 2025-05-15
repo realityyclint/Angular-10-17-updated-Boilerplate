@@ -67,8 +67,8 @@ export class ListComponent implements OnInit {
         });
     }
 
-    viewRequests(id: number): void {
-        this.router.navigate(['/employees', id, 'requests']);
+    viewRequests(accountId: number): void {
+        this.router.navigate(['/employees', accountId, 'requests']);
     }
 
     viewWorkflows(id: number): void {
