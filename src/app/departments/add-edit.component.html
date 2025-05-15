@@ -1,18 +1,29 @@
-<div class="card">
-  <div class="card-header">{{id ? 'Edit' : 'Add'}} Department</div>
-  <div class="card-body">
-    <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
-    <div class="mb-3">
-      <label class="form-label">Name</label>
-      <input type="text" class="form-control" [(ngModel)]="department.name">
+<div class="card shadow rounded-4 border-0">
+  <div class="card-header bg-primary text-white fw-semibold fs-5 rounded-top-4">
+    {{ id ? 'Edit' : 'Add' }} Department
+  </div>
+  <div class="card-body p-4 bg-light">
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
     </div>
-    <div class="mb-3">
-      <label class="form-label">Description</label>
-      <input type="text" class="form-control" [(ngModel)]="department.description">
+
+    <div class="mb-4">
+      <label class="form-label fw-semibold">Name</label>
+      <input type="text" class="form-control form-control-lg rounded-3" [(ngModel)]="department.name" placeholder="Enter department name">
     </div>
-    <div class="text-center">
-      <button class="btn btn-primary me-2" (click)="save()">Save</button>
-      <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+
+    <div class="mb-4">
+      <label class="form-label fw-semibold">Description</label>
+      <input type="text" class="form-control form-control-lg rounded-3" [(ngModel)]="department.description" placeholder="Enter short description">
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-success px-4 py-2 fw-semibold me-3 rounded-pill shadow-sm" (click)="save()">
+        <i class="bi bi-check-circle me-1"></i> Save
+      </button>
+      <button class="btn btn-outline-secondary px-4 py-2 fw-semibold rounded-pill" (click)="cancel()">
+        <i class="bi bi-x-circle me-1"></i> Cancel
+      </button>
     </div>
   </div>
 </div>
