@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RequestService } from '../_services/request.service';
 import { AccountService } from '../_services/account.service';
 
@@ -14,7 +14,8 @@ export class ListComponent implements OnInit {
     constructor(
         private requestService: RequestService,
         private accountService: AccountService,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) { }
 
     ngOnInit(): void {
@@ -29,11 +30,11 @@ export class ListComponent implements OnInit {
     }
 
     add(): void {
-        this.router.navigate(['/requests/add']);
+        this.router.navigate(['add'], { relativeTo: this.route }); // ✅ relative navigation
     }
 
     edit(id: number): void {
-        this.router.navigate(['/requests/edit', id]);
+        this.router.navigate(['edit', id], { relativeTo: this.route }); // ✅ relative navigation
     }
 
     delete(id: number): void {

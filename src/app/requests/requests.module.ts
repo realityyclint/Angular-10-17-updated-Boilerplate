@@ -1,16 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
+import { RequestsRoutingModule } from '../requests-routing.module'; // ✅ Use this
 
 import { AddEditComponent } from './add-edit.component';
 import { ListComponent } from './list.component';
-
-const routes: Routes = [
-    { path: '', component: ListComponent },
-    { path: 'add', component: AddEditComponent },
-    { path: 'edit/:id', component: AddEditComponent }
-];
 
 @NgModule({
     declarations: [
@@ -20,7 +14,7 @@ const routes: Routes = [
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule.forChild(routes)
+        RequestsRoutingModule // ✅ Proper routing
     ]
 })
 export class RequestsModule { }
