@@ -53,6 +53,11 @@ export class AddEditComponent implements OnInit {
     save(): void {
         const payload = { ...this.request };
 
+        // Prevent sending employeeId if creating a new request
+        if (!this.id) {
+            delete payload.employeeId;
+        }
+
         const request$ = this.id
             ? this.requestService.update(this.id, payload)
             : this.requestService.create(payload);
@@ -62,6 +67,7 @@ export class AddEditComponent implements OnInit {
             error: (err) => (this.errorMessage = err.message),
         });
     }
+
 
     cancel(): void {
         this.router.navigate(['/requests']);
