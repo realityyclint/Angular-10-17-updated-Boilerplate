@@ -1,9 +1,11 @@
-<div class="card">
-  <div class="card-header">Employees</div>
-  <div class="card-body">
+<div class="card shadow-lg border-0 rounded-4">
+  <div class="card-header bg-primary text-white fs-5 fw-semibold rounded-top-4">
+    Employees
+  </div>
+  <div class="card-body bg-light">
     <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
+      <table class="table table-hover align-middle">
+        <thead class="table-dark">
           <tr>
             <th>Employee ID</th>
             <th>User</th>
@@ -11,31 +13,51 @@
             <th>Department</th>
             <th>Hire Date</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th class="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let employee of employees">
-            <td>{{employee.accountId}}</td>
-            <td>{{employee.Account?.email}}</td> 
-            <td>{{employee.position}}</td>
-            <td>{{employee.Department?.name}}</td> 
-            <td>{{employee.hireDate | date:'shortDate'}}</td>
+            <td>{{ employee.accountId }}</td>
+            <td>{{ employee.Account?.email }}</td>
+            <td>{{ employee.position }}</td>
+            <td>{{ employee.Department?.name }}</td>
+            <td>{{ employee.hireDate | date:'mediumDate' }}</td>
             <td>
-              <span class="badge" [ngClass]="{'bg-success': employee.status === 'Active', 'bg-danger': employee.status !== 'Active'}">{{employee.status}}</span>
+              <span
+                class="badge rounded-pill px-3 py-2 fs-6"
+                [ngClass]="{
+                  'bg-success': employee.status === 'Active',
+                  'bg-danger': employee.status !== 'Active'
+                }">
+                {{ employee.status }}
+              </span>
             </td>
-            <td>
-              <button class="btn btn-sm btn-info me-1" (click)="viewRequests(employee.accountId)">Requests</button>
-              <button class="btn btn-sm btn-info me-1" (click)="viewWorkflows(employee.id)">Workflows</button>
-              <button *ngIf="account()?.role === 'Admin'" class="btn btn-sm btn-warning me-1" (click)="transfer(employee)">Transfer</button>
-              <button class="btn btn-sm btn-primary me-1" (click)="edit(employee.id)">Edit</button>
-              <button *ngIf="account()?.role === 'Admin'" class="btn btn-sm btn-danger" (click)="delete(employee.id)">Delete</button>
+            <td class="text-center">
+              <button class="btn btn-outline-info btn-sm fw-semibold me-2" (click)="viewRequests(employee.accountId)">
+                 Requests
+              </button>
+              <button class="btn btn-outline-info btn-sm fw-semibold me-2" (click)="viewWorkflows(employee.id)">
+                 Workflows
+              </button>
+              <button *ngIf="account()?.role === 'Admin'" class="btn btn-outline-warning btn-sm fw-semibold me-2" (click)="transfer(employee)">
+                 Transfer
+              </button>
+              <button class="btn btn-outline-primary btn-sm fw-semibold me-2" (click)="edit(employee.id)">
+                 Edit
+              </button>
+              <button *ngIf="account()?.role === 'Admin'" class="btn btn-outline-danger btn-sm fw-semibold" (click)="delete(employee.id)">
+                 Delete
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <button *ngIf="account()?.role === 'Admin'" class="btn btn-primary float-end" (click)="add()">Add Employee</button>
+
+    <button *ngIf="account()?.role === 'Admin'" class="btn btn-success px-4 py-2 mt-3 float-end fw-semibold shadow-sm rounded-pill" (click)="add()">
+       Add Employee
+    </button>
   </div>
 </div>
 
