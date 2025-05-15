@@ -2,6 +2,15 @@
   <div class="card-header">{{id ? 'Edit' : 'Add'}} Request</div>
   <div class="card-body">
     <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+    <div *ngIf="id">
+      <label for="employee">Employee:</label>
+      <select [(ngModel)]="request.employeeId" name="employee">
+        <option *ngFor="let emp of employees" [value]="emp.id">
+          {{ emp.firstName }} {{ emp.lastName }}
+        </option>
+      </select>
+    </div>
+    
     <div class="mb-3">
       <label class="form-label">Type</label>
       <select class="form-select" [(ngModel)]="request.type">
