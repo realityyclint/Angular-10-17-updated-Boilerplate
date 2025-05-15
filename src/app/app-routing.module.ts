@@ -21,7 +21,7 @@ const routes: Routes = [
     { path: 'departments', loadChildren: departmentsModule, canActivate: [AuthGuard] },
     { path: 'employees', loadChildren: employeesModule, canActivate: [AuthGuard] },
     { path: 'employees/:employeeId/workflows', loadChildren: workflowsModule, canActivate: [AuthGuard] },
-    { path: 'requests', loadChildren: requestsModule, canActivate: [AuthGuard] }, // ✅ Add Requests route
+    { path: 'employees/:employeeId/requests', loadChildren: requestsModule, canActivate: [AuthGuard] }, // ✅ Updated Requests route
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
