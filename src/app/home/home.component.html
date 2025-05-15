@@ -1,6 +1,22 @@
-<div class="p-4">
-    <div class="container">
-        <h1>Hi {{account.firstName}}!</h1>
-        <p>You're logged in with Angular 10 & JWT!!</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-body text-center p-5 bg-light">
+            <h2 class="mb-3 fw-bold text-primary">Welcome back, {{account.firstName}}! 👋</h2>
+            <p class="lead text-muted">
+              You're securely logged in with <strong>Angular 10</strong> & <strong>JWT</strong>! 🎉
+            </p>
+            <hr class="my-4">
+            <p class="text-secondary">
+              Explore your dashboard, manage your requests, or check in on your tasks — we’ve got everything ready for you!
+            </p>
+            <a routerLink="/employees" class="btn btn-outline-primary mt-3 px-4">
+              Go to Employees
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  
