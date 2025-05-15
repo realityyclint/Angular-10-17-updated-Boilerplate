@@ -1,7 +1,21 @@
 <div class="p-4">
-    <div class="container">
-        <h1>Admin</h1>
-        <p>This section can only be accessed by administrators.</p>
-        <p><a routerLink="accounts">Manage Accounts</a></p>
+    <div class="container animate__animated animate__fadeIn">
+      <div class="card shadow-sm border-0 rounded-4 bg-white">
+        <div class="card-body p-5">
+          <div class="d-flex align-items-center mb-4">
+            <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 50px; height: 50px;">
+              <i class="bi bi-shield-lock-fill fs-4"></i>
+            </div>
+            <h2 class="mb-0">Admin Dashboard</h2>
+          </div>
+          <p class="text-muted">
+            This section is restricted to administrators only. Use the tools below to manage users and permissions.
+          </p>
+          <a routerLink="accounts" class="btn btn-outline-primary mt-3">
+            <i class="bi bi-people-fill me-2"></i> Manage Accounts
+          </a>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  

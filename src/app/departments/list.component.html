@@ -1,10 +1,12 @@
-<div class="card">
-  <div class="card-header">Departments</div>
-  <div class="card-body">
+<div class="card shadow-sm border-0 rounded-4 animate__animated animate__fadeIn">
+  <div class="card-header bg-primary text-white rounded-top-4">
+    <h4 class="mb-0"><i class="bi bi-diagram-3 me-2"></i>Departments</h4>
+  </div>
+  <div class="card-body bg-light rounded-bottom-4">
     <div class="table-responsive">
-      <ng-container *ngIf="departments && departments.length">
-        <table class="table table-striped">
-          <thead>
+      <ng-container *ngIf="departments && departments.length; else noDepartments">
+        <table class="table table-hover align-middle text-center">
+          <thead class="table-secondary">
             <tr>
               <th>Name</th>
               <th>Description</th>
@@ -14,18 +16,31 @@
           </thead>
           <tbody>
             <tr *ngFor="let dept of departments">
-              <td>{{ dept.name }}</td>
+              <td><strong>{{ dept.name }}</strong></td>
               <td>{{ dept.description }}</td>
               <td>{{ dept.employeeCount }}</td>
               <td>
-                <button class="btn btn-sm btn-primary me-1" (click)="edit(dept.id)">Edit</button>
-                <button *ngIf="account.role === 'Admin'" class="btn btn-sm btn-danger" (click)="delete(dept.id)">Delete</button>
+                <button class="btn btn-sm btn-outline-primary me-1" (click)="edit(dept.id)">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button *ngIf="account.role === 'Admin'" class="btn btn-sm btn-outline-danger" (click)="delete(dept.id)">
+                  <i class="bi bi-trash"></i>
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
       </ng-container>
+      <ng-template #noDepartments>
+        <div class="text-center text-muted py-4">
+          <i class="bi bi-info-circle me-2"></i>No departments found.
+        </div>
+      </ng-template>
     </div>
-    <button *ngIf="account.role === 'Admin'" class="btn btn-primary float-end" (click)="add()">Add Department</button>
+    <div class="mt-4 text-end">
+      <button *ngIf="account.role === 'Admin'" class="btn btn-success" (click)="add()">
+        <i class="bi bi-plus-circle me-2"></i> Add Department
+      </button>
+    </div>
   </div>
 </div>
