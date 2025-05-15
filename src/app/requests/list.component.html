@@ -18,7 +18,7 @@
             <td>{{request.Employee?.Account?.firstName}} {{request.Employee?.Account?.lastName}}</td>
             <td>
               <ul>
-                <li *ngFor="let item of request.requestItems">{{item.name}} (x{{item.quantity}})</li>
+                <li *ngFor="let item of request.RequestItems">{{item.name}} (x{{item.quantity}})</li>
               </ul>
             </td>
             <td>{{request.status}}</td>
