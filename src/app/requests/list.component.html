@@ -1,13 +1,12 @@
-<div class="card shadow-lg border-0 rounded-4 my-4">
+<div class="card shadow-lg border-0 rounded-4 my-4 animate__animated animate__fadeIn">
   <div class="card-header bg-primary text-white fw-semibold fs-5 d-flex justify-content-between align-items-center">
     <span> Requests</span>
-    <button class="btn btn-light btn-sm fw-semibold" (click)="add()"> Add Request</button>
   </div>
 
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-hover align-middle text-center">
-        <thead class="table-light">
+        <thead class="table-dark">
           <tr>
             <th>Type</th>
             <th>Employee</th>
@@ -54,4 +53,5 @@
       </table>
     </div>
   </div>
+  <button class="btn btn-success px-4 py-2 mt-3 float-end fw-semibold shadow-sm" (click)="add()"> Add Request</button>
 </div>
