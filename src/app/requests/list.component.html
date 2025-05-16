@@ -1,10 +1,10 @@
 <div class="card shadow-lg border-0 rounded-4 my-4 animate__animated animate__fadeIn">
   <div class="card-header bg-primary text-white fw-semibold fs-5 d-flex justify-content-between align-items-center">
-    <span> Requests</span>
+    <span>Requests</span>
   </div>
 
   <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive shadow rounded-4">
       <table class="table table-hover align-middle text-center">
         <thead class="table-dark">
           <tr>
@@ -36,7 +36,7 @@
                 {{ request.status }}
               </span>
             </td>
-            <td>
+            <td class="text-nowrap">
               <button *ngIf="account()?.role === 'Admin'"
                       class="btn btn-sm btn-outline-primary me-1 shadow-sm"
                       (click)="edit(request.id)">
@@ -52,6 +52,12 @@
         </tbody>
       </table>
     </div>
+
+    <!-- 🧼 Clean, right-aligned Add button -->
+    <div class="d-flex justify-content-end mt-3">
+      <button class="btn btn-success btn-sm px-4 py-2 fw-semibold shadow-sm" (click)="add()">
+        <i class="bi bi-plus-circle me-1"></i> Add Request
+      </button>
+    </div>
   </div>
-  <button class="btn btn-success px-4 py-2 mt-3 float-end fw-semibold shadow-sm" (click)="add()"> Add Request</button>
 </div>
