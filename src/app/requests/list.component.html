@@ -1,9 +1,13 @@
-<div class="card">
-  <div class="card-header">Requests</div>
+<div class="card shadow-lg border-0 rounded-4 my-4">
+  <div class="card-header bg-primary text-white fw-semibold fs-5 d-flex justify-content-between align-items-center">
+    <span> Requests</span>
+    <button class="btn btn-light btn-sm fw-semibold" (click)="add()"> Add Request</button>
+  </div>
+
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
+      <table class="table table-hover align-middle text-center">
+        <thead class="table-light">
           <tr>
             <th>Type</th>
             <th>Employee</th>
@@ -14,22 +18,40 @@
         </thead>
         <tbody>
           <tr *ngFor="let request of requests">
-            <td>{{request.type}}</td>
-            <td>{{request.Employee?.Account?.firstName}} {{request.Employee?.Account?.lastName}}</td>
-            <td>
-              <ul>
-                <li *ngFor="let item of request.RequestItems">{{item.name}} (x{{item.quantity}})</li>
+            <td class="fw-semibold">{{ request.type }}</td>
+            <td>{{ request.Employee?.Account?.firstName }} {{ request.Employee?.Account?.lastName }}</td>
+            <td class="text-start">
+              <ul class="list-unstyled mb-0">
+                <li *ngFor="let item of request.RequestItems">
+                  {{ item.name }} <span class="text-muted">(x{{ item.quantity }})</span>
+                </li>
               </ul>
             </td>
-            <td>{{request.status}}</td>
             <td>
-              <button *ngIf="account()?.role === 'Admin'" class="btn btn-sm btn-primary me-1" (click)="edit(request.id)">Edit</button>
-              <button *ngIf="account()?.role === 'Admin'" class="btn btn-sm btn-danger" (click)="delete(request.id)">Delete</button>
+              <span class="badge"
+                    [ngClass]="{
+                      'bg-success': request.status === 'Approved',
+                      'bg-warning text-dark': request.status === 'Pending',
+                      'bg-danger': request.status === 'Rejected'
+                    }">
+                {{ request.status }}
+              </span>
+            </td>
+            <td>
+              <button *ngIf="account()?.role === 'Admin'"
+                      class="btn btn-sm btn-outline-primary me-1 shadow-sm"
+                      (click)="edit(request.id)">
+                 Edit
+              </button>
+              <button *ngIf="account()?.role === 'Admin'"
+                      class="btn btn-sm btn-outline-danger shadow-sm"
+                      (click)="delete(request.id)">
+                 Delete
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <button class="btn btn-primary float-end" (click)="add()">Add Request</button>
   </div>
 </div>
